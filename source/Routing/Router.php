@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Base\Routing;
+
 class Router
 {
     public function route(string $uri)
@@ -12,5 +14,6 @@ class Router
     //TODO ez legyen kiszervezve
     private $map = [
         '/' => 'portal.html',
+        '/user' => 'user.html',
     ];
 }

@@ -1,11 +1,16 @@
 <?php
 
-    require_once 'Controller.php';
-    require_once 'Router.php';
+declare(strict_types=1);
 
-    isset($_REQUEST['param']) ? $queryParams = $_REQUEST['param'] : $queryParams = null;
-    $controller = new Controller();
-    $router = new Router();
-    $controller->control($router->route($_SERVER["REQUEST_URI"]));
+require "vendor/autoload.php";
 
+use Base\Controlling\Controller;
+use Base\Routing\Router;
+use Base\Templating\Templater;
 
+$controller = new Controller(new Templater());
+$router = new Router();
+$controller->control($router->route($_SERVER["REQUEST_URI"]), [
+    'name' => 'Joe',
+    'age' => '10'
+]);
