@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 require "vendor/autoload.php";
 
-use Base\Controlling\Controller;
-use Base\Routing\Router;
-use Base\Templating\Templater;
+use Base\Container\ContainerBuilder;
 use Symfony\Component\HttpFoundation\Request;
 
 $request = Request::createFromGlobals();
+$container = new \Pimple\Container();
+$containerBuilder = new ContainerBuilder();
+$containerBuilder->register($container);
 
-$controller = new Controller(new Templater());
-$router = new Router();
-$router->route($request);
+list($controllerName, $actionName) = $container['router']->route($request);
+$container[$controllerName]->$actionName($request);

@@ -40,10 +40,9 @@ class Router
             case Dispatcher::FOUND:
                 $handler = $routeInfo[1];
                 $vars = $routeInfo[2];
-                $controllerName = "Portal\\" . substr($handler, 0, strpos($handler, '::')) . 'Controller';
+                $controllerName = strtolower(substr($handler, 0, strpos($handler, '::')) . '_controller');
                 $actionName = substr($handler, strpos($handler, '::') + 2) . 'Action';
-                $controller = new $controllerName(new Templater());
-                $controller->$actionName($request);
+                return [$controllerName, $actionName];
                 break;
         }
     }
